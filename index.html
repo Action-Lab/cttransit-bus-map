@@ -13,7 +13,7 @@
       integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
       crossorigin=""></script>
 
-    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
     <script type="text/javascript" src="papaparse.min.js"></script>
 
     <style>
@@ -77,7 +77,6 @@
             for (i in data.data) {
               routesData[data.data[i].route_id] = data.data[i];
             }
-            console.log(routesData);
             updatePositions();
           }
         });
