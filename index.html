@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>CTtransit Bus Positions in Real Time</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+      integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+      integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+      crossorigin=""></script>
+
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <script type="text/javascript" src="papaparse.min.js"></script>
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+      }
+      #map {
+        width: 100vw;
+        height: 100vh;
+      }
+      #schedule {
+        position: absolute;
+        z-index: 999;
+        top: 10px;
+        left: 10px;
+        background: white;
+        padding: 10px 15px;
+      }
+      a, a:hover, a:visited {
+        color: rgb(58, 132, 223);
+        text-decoration: none;
+        margin-left: 5px;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .leaflet-popup-content {
+        font-size: 16px;
+      }
+      .bus-icon {
+        border: 0;
+        font-size: 11px;
+        text-align: center;
+        line-height: 10px;
+      }
+      .bus-icon img {
+        height: 24px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="map"></div>
+
+    <script>
+      var coordsTrin = [41.7479, -72.6903];
+      var map = L.map('map').setView(coordsTrin, 13);
+
+      var baselayer = new L.StamenTileLayer('toner-lite');
+
+      map.addLayer(baselayer);
+
+      var routesData = {};
+      $.get('routes.txt', function(fileData) {
+        Papa.parse(fileData, {
+          header: true,
+          complete: function(data) {
+            for (i in data.data) {
+              routesData[data.data[i].route_id] = data.data[i];
+            }
+            console.log(routesData);
+            updatePositions();
+          }
+        });
+      });
+
+
+      var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
+      var vehicles = {};
+
+      function updatePositions() {
+        $.getJSON(jsonUrl, function(data) {
+          for (i in data.entity) {
+            var obj = data.entity[i];
+            var lat = obj.vehicle.position.latitude;
+            var lng = obj.vehicle.position.longitude;
+
+            if (!vehicles[obj.id]) {
+              var busNumber = routesData[obj.vehicle.trip.route_id].route_short_name;
+              var bgColor = '#' + routesData[obj.vehicle.trip.route_id].route_color;
+              var textColor = '#' + routesData[obj.vehicle.trip.route_id].route_text_color;
+
+              var glyphContent = '\
+                <span style="\
+                  background:' + bgColor + ';\
+                  color:' + textColor + ';\
+                  ">'
+                  + busNumber + '</span>\
+                  <br><img src="bus.png">';
+
+              var glyph = L.divIcon({
+                html: glyphContent,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20],
+                className: 'bus-icon',
+              });
+
+              var popup = 'Bus ' + busNumber;
+              vehicles[obj.id] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
+            }
+
+            vehicles[obj.id].setLatLng(new L.latLng(lat, lng));
+          }
+        });
+        setTimeout(updatePositions, 30000);
+      }
+
+    </script>
+
+  </body>
+</html>
