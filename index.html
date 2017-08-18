@@ -53,6 +53,14 @@
       .bus-icon img {
         height: 24px;
       }
+      .bus-icon img.downtown {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+      }
     </style>
   </head>
 
@@ -61,6 +69,30 @@
     <div id="map"></div>
 
     <script>
+      /**
+       * Loads a .geojson file from routes/ and displays it on the map
+       */
+      function addRoute(number, color) {
+        $.getJSON('routes/' + number + '.geojson', function(data) {
+          var route = L.geoJSON(data, {style: {
+              color: color,
+              weight: 5,
+              opacity: 0.3
+            }
+          }).addTo(map);
+
+          route.on('click', function(e) {
+            L.DomEvent.stopPropagation(e);    // this is needed to prevent opening map's (not geojson's) popup
+            openPopup(e, 'Bus Route ' + number);
+          });
+        });
+      };
+
+      addRoute('37-39', '#8000FF');
+      addRoute('41', '#FF0000');
+      addRoute('61', '#FF0000');
+
+      // Only display the following route_ids:
       var routesToDisplay = ['9005', '9131', '9134', '9008', '9021', '9147'];
 
       var coordsTrin = [41.7479, -72.6903];
@@ -74,6 +106,7 @@
       var routesData = {};
       var tripsData = {};
 
+      // Load routes.txt to get bus number and colors by route_id
       $.get('routes.txt', function(fileData) {
         Papa.parse(fileData, {
           header: true,
@@ -82,6 +115,7 @@
               routesData[data.data[i].route_id] = data.data[i];
             }
 
+            // Load trips.txt to get direction and trip_headsign by trip_id
             $.get('trips.txt', function(fileData) {
               Papa.parse(fileData, {
                 header: true,
@@ -98,7 +132,7 @@
       });
 
 
-      var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
+      //var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
       var jsonUrl = 'sample.json';
       var vehicles = {};
 
@@ -123,9 +157,9 @@
                 <span style="\
                   background:' + bgColor + ';\
                   color:' + textColor + ';\
-                  ">'
-                  + busNumber + '</span>\
-                  <br><img src="bus-' + (direction == '0' ? 'left' : 'right') + '.png">';
+                  ">' + busNumber + '</span>\
+                <br>\
+                <img src="bus.png" ' + (direction == '0' ? '' : ' class="downtown"') + '>';
 
               var glyph = L.divIcon({
                 html: glyphContent,
