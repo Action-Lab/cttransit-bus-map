@@ -72,6 +72,8 @@
       }).addTo(map);
 
       var routesData = {};
+      var tripsData = {};
+
       $.get('routes.txt', function(fileData) {
         Papa.parse(fileData, {
           header: true,
@@ -79,13 +81,24 @@
             for (i in data.data) {
               routesData[data.data[i].route_id] = data.data[i];
             }
-            updatePositions();
+
+            $.get('trips.txt', function(fileData) {
+              Papa.parse(fileData, {
+                header: true,
+                complete: function(data) {
+                  for (i in data.data) {
+                    tripsData[data.data[i].trip_id] = data.data[i];
+                  }
+                  updatePositions();
+                }
+              })
+            });
           }
         });
       });
 
 
-      //var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
+      var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
       var jsonUrl = 'sample.json';
       var vehicles = {};
 
@@ -104,7 +117,7 @@
               var bgColor = '#' + routesData[obj.vehicle.trip.route_id].route_color;
               var textColor = '#' + routesData[obj.vehicle.trip.route_id].route_text_color;
 
-              console.log(busNumber, obj.vehicle.trip.route_id);
+              var direction = tripsData[obj.vehicle.trip.trip_id].direction_id;
 
               var glyphContent = '\
                 <span style="\
@@ -112,7 +125,7 @@
                   color:' + textColor + ';\
                   ">'
                   + busNumber + '</span>\
-                  <br><img src="bus.png">';
+                  <br><img src="bus-' + (direction == '0' ? 'left' : 'right') + '.png">';
 
               var glyph = L.divIcon({
                 html: glyphContent,
@@ -121,7 +134,7 @@
                 className: 'bus-icon',
               });
 
-              var popup = 'Bus ' + busNumber;
+              var popup = 'Bus ' + tripsData[obj.vehicle.trip.trip_id].trip_headsign;
               vehicles[obj.id] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
             }
 
