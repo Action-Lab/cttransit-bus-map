@@ -13,7 +13,6 @@
       integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
       crossorigin=""></script>
 
-    <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
     <script type="text/javascript" src="papaparse.min.js"></script>
 
     <style>
@@ -62,12 +61,15 @@
     <div id="map"></div>
 
     <script>
+      var routesToDisplay = ['9005', '9131', '9134', '9008', '9021', '9147'];
+
       var coordsTrin = [41.7479, -72.6903];
       var map = L.map('map').setView(coordsTrin, 13);
 
-      var baselayer = new L.StamenTileLayer('toner-lite');
-
-      map.addLayer(baselayer);
+      var baselayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;\
+        <a href="https://carto.com/attribution">CARTO</a>'
+      }).addTo(map);
 
       var routesData = {};
       $.get('routes.txt', function(fileData) {
@@ -91,6 +93,9 @@
         $.getJSON(jsonUrl, function(data) {
           for (i in data.entity) {
             var obj = data.entity[i];
+
+            if ($.inArray(obj.vehicle.trip.route_id, routesToDisplay) == -1) continue;
+
             var lat = obj.vehicle.position.latitude;
             var lng = obj.vehicle.position.longitude;
 
@@ -98,6 +103,8 @@
               var busNumber = routesData[obj.vehicle.trip.route_id].route_short_name;
               var bgColor = '#' + routesData[obj.vehicle.trip.route_id].route_color;
               var textColor = '#' + routesData[obj.vehicle.trip.route_id].route_text_color;
+
+              console.log(busNumber, obj.vehicle.trip.route_id);
 
               var glyphContent = '\
                 <span style="\
@@ -121,7 +128,7 @@
             vehicles[obj.id].setLatLng(new L.latLng(lat, lng));
           }
         });
-        setTimeout(updatePositions, 30000);
+        setTimeout(updatePositions, 10000);
       }
 
     </script>
