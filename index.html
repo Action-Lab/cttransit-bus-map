@@ -33,6 +33,9 @@
         background: white;
         padding: 10px 15px;
       }
+      span {
+        padding: 0 2px;
+      }
       a, a:hover, a:visited {
         color: rgb(58, 132, 223);
         text-decoration: none;
@@ -95,8 +98,8 @@
       // Only display the following route_ids:
       var routesToDisplay = ['9005', '9131', '9134', '9008', '9021', '9147'];
 
-      var coordsTrin = [41.7479, -72.6903];
-      var map = L.map('map').setView(coordsTrin, 13);
+      var trinCoords = [41.7479, -72.6903];
+      var map = L.map('map').setView(trinCoords, 14);
 
       var baselayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;\
@@ -105,9 +108,10 @@
 
       var routesData = {};
       var tripsData = {};
+      var stopsData = {};
 
       // Load routes.txt to get bus number and colors by route_id
-      $.get('routes.txt', function(fileData) {
+      $.get('gtfs/routes.txt', function(fileData) {
         Papa.parse(fileData, {
           header: true,
           complete: function(data) {
@@ -116,7 +120,7 @@
             }
 
             // Load trips.txt to get direction and trip_headsign by trip_id
-            $.get('trips.txt', function(fileData) {
+            $.get('gtfs/trips.txt', function(fileData) {
               Papa.parse(fileData, {
                 header: true,
                 complete: function(data) {
@@ -124,6 +128,7 @@
                     tripsData[data.data[i].trip_id] = data.data[i];
                   }
                   updatePositions();
+                  addTrinityStops();
                 }
               })
             });
@@ -131,9 +136,82 @@
         });
       });
 
+      function addTrinityStops() {
+        var busStops = [
+          {
+            id: '2153',
+            name: 'New Britain Ave and Trinity Skating Ring',
+            lat: 41.744452,
+            lon: -72.688232
+          },
+          {
+            id: '2001',
+            name: 'New Britain Ave and Crescent St',
+            lat: 41.744149,
+            lon: -72.689165
+          },
+          {
+            id: '592',
+            name: 'Broad St and Opp Cresent St',
+            lat: 41.745925,
+            lon: -72.687018
+          },
+          {
+            id: '597',
+            name: 'Broad St and Vernon St',
+            lat: 41.751404,
+            lon: -72.686959
+          }
+        ];
 
-      //var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
-      var jsonUrl = 'sample.json';
+        var busStopsMarkers = [];
+        for (i in busStops) {
+          var s = busStops[i];
+          busStopsMarkers.push(new L.marker([s.lat, s.lon]).addTo(map));
+        }
+
+        function formatSchedule(data) {
+          data = data.slice(0,9);
+          data.sort(function(a, b) {
+            if (a.arrival_time < b.arrival_time) return -1;
+            if (a.arrival_time > b.arrival_time) return 1;
+            return 0;
+          });
+
+          var result = '';
+          for (i in data) {
+            result += data[i].arrival_time.substring(0,5) + ' <span style="color:white;background:#' + routesData[tripsData[data[i].trip_id].route_id].route_color + '">'  + routesData[tripsData[data[i].trip_id].route_id].route_short_name + '</span><br>';
+          }
+          return result;
+        }
+
+        $.get('gtfs/stop_times.txt', function(file) {
+          Papa.parse(file, {
+            header: true,
+            complete: function(data) {
+              for (i in data.data) {
+                var p = data.data[i];
+                if ( $.inArray(p.stop_id, busStops.map(function(x) {return x.id})) > -1 ) {
+                  if ( $.inArray(tripsData[p.trip_id].route_id, routesToDisplay) > -1 ) {
+                    if (!stopsData[p.stop_id]) {
+                      stopsData[p.stop_id] = [];
+                    }
+                    stopsData[p.stop_id].push(p);
+                  }
+                }
+              }
+              //
+              for (i in busStopsMarkers) {
+                var m = busStopsMarkers[i];
+                m.bindPopup(formatSchedule(stopsData[busStops[i].id]));
+              }
+            }
+          });
+        });
+      };
+
+      var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
+      //var jsonUrl = 'sample.json';
       var vehicles = {};
 
       function updatePositions() {
