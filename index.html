@@ -145,10 +145,10 @@
             lon: -72.688232
           },
           {
-            id: '2001',
-            name: 'New Britain Ave and Crescent St',
-            lat: 41.744149,
-            lon: -72.689165
+            id: '2002',
+            name: 'New Britain Ave and Opp Newbury St',
+            lat: 41.742704,
+            lon: -72.691724
           },
           {
             id: '592',
@@ -217,9 +217,7 @@
         }); */
       };
 
-      var jsonUrl = 'https://ilyankou.domains.trincoll.edu/cgi-bin/getjson.py';
-      //var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
-      //var jsonUrl = 'sample.json';
+      var jsonUrl = 'https://ilyankou.domains.trincoll.edu/cttransit';
       var vehicles = {};
 
       function updatePositions() {
@@ -260,7 +258,7 @@
 
             vehicles[obj.id].setLatLng(new L.latLng(lat, lng));
           }
-        });
+        }).fail(function() {alert('error')});
         setTimeout(updatePositions, 10000);
       }
 
