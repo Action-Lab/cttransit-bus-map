@@ -54,7 +54,7 @@
         line-height: 10px;
       }
       .bus-icon img {
-        height: 24px;
+        height: 32px;
       }
       .bus-icon img.downtown {
         -moz-transform: scaleX(-1);
@@ -164,10 +164,17 @@
           }
         ];
 
+        var busStopIcon = L.icon({
+          iconUrl: 'bus-stop-2.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 32]
+        });
+
         var busStopsMarkers = [];
+
         for (i in busStops) {
           var s = busStops[i];
-          busStopsMarkers.push(new L.marker([s.lat, s.lon]).addTo(map));
+          busStopsMarkers.push(new L.marker([s.lat, s.lon], {icon: busStopIcon}).addTo(map));
         }
 
         function formatSchedule(data) {
@@ -184,7 +191,7 @@
           }
           return result;
         }
-
+/*
         $.get('gtfs/stop_times.txt', function(file) {
           Papa.parse(file, {
             header: true,
@@ -207,11 +214,12 @@
               }
             }
           });
-        });
+        }); */
       };
 
+      var jsonUrl = 'https://ilyankou.domains.trincoll.edu/cgi-bin/getjson.py';
       //var jsonUrl = 'http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json';
-      var jsonUrl = 'sample.json';
+      //var jsonUrl = 'sample.json';
       var vehicles = {};
 
       function updatePositions() {
