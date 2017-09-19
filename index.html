@@ -235,7 +235,10 @@
               var bgColor = '#' + routesData[obj.vehicle.trip.route_id].route_color;
               var textColor = '#' + routesData[obj.vehicle.trip.route_id].route_text_color;
 
-              var direction = tripsData[obj.vehicle.trip.trip_id].direction_id;
+              var direction = 0;
+              if (tripsData[obj.vehicle.trip.trip_id]) {
+                direction = tripsData[obj.vehicle.trip.trip_id].direction_id;
+              }
 
               var glyphContent = '\
                 <span style="\
