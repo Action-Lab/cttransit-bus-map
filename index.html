@@ -106,6 +106,15 @@
         <a href="https://carto.com/attribution">CARTO</a>'
       }).addTo(map);
 
+      var trinity = L.marker(trinCoords, {
+        icon: L.icon({
+          iconUrl: 'trinity.png',
+          iconSize: [48, 48]
+        })
+      })
+      .bindPopup('<h3>Trinity College</h3> 300 Summit St <br> Hartford CT <br> 06106')
+      .addTo(map);
+
       var routesData = {};
       var tripsData = {};
       var stopsData = {};
@@ -165,7 +174,7 @@
         ];
 
         var busStopIcon = L.icon({
-          iconUrl: 'bus-stop-2.png',
+          iconUrl: 'bus-stop.png',
           iconSize: [32, 32],
           iconAnchor: [16, 32]
         });
@@ -246,7 +255,7 @@
                   color:' + textColor + ';\
                   ">' + busNumber + '</span>\
                 <br>\
-                <img src="bus.png" ' + (direction == '0' ? '' : ' class="downtown"') + '>';
+                <img src="bus.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
 
               var glyph = L.divIcon({
                 html: glyphContent,
