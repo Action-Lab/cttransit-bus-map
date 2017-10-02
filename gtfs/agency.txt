@@ -1,4 +1,5 @@
 agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone
-googlehaM_transit,CTTransit - Hartford,http://www.cttransit.com,America/New_York,en,860-525-9181
-googlenb_transit,CTTransit - New Britain,http://www.cttransit.com,America/New_York,en,860-828-0512
-googlenh_transit,CTTransit- New Haven,http://www.cttransit.com,America/New_York,en,203-624-0151
+googleha_transit,CTTransit- Hartford,http://www.cttransit.com,America/New_York,en,860-525-9181
+googlenb_transit,CTTransit- New Britain-Bristol,https://www.cttransit.com,America/New_York,en,860-828-0512
+googlenhM_transit,CTTransit- New Haven,http://www.cttransit.com,America/New_York,en,203-624-0151
+googlewat_transit,CTTransit - Waterbury,http://www.cttransit.com,America/New_York,en,203-753-2538
