@@ -64,6 +64,9 @@
         filter: FlipH;
         -ms-filter: "FlipH";
       }
+      .bus-icon span {
+        z-index: 99999;
+      }
     </style>
   </head>
 
@@ -80,7 +83,7 @@
           var route = L.geoJSON(data, {style: {
               color: color,
               weight: 5,
-              opacity: 0.3
+              opacity: 0.8
             }
           }).addTo(map);
 
@@ -101,10 +104,8 @@
       var trinCoords = [41.7479, -72.6903];
       var map = L.map('map').setView(trinCoords, 14);
 
-      var baselayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-        maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;\
-        <a href="https://carto.com/attribution">CARTO</a>'
-      }).addTo(map);
+      var baseLayer = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg');
+      baseLayer.addTo(map);
 
       var trinity = L.marker(trinCoords, {
         icon: L.icon({
@@ -270,7 +271,7 @@
 
             vehicles[obj.id].setLatLng(new L.latLng(lat, lng));
           }
-        }).fail(function() {alert('error')});
+        }).fail(function() {console.log('Cannot load data')});
         setTimeout(updatePositions, 10000);
       }
 
