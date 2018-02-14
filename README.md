@@ -1,5 +1,9 @@
 # CTTransit Real Time Bus Data for Trinity College
 
+## Embedded on several pages
+- http://commons.trincoll.edu/action-lab/transportation/
+- http://commons.trincoll.edu/cli/transportation/
+- http://www.trincoll.edu/StudentLife/transportation/Pages/default.aspx
 
 ### Maintaining the map
 1. Download fresh GTFS data for Hartford from [CTTransit Developers](https://www.cttransit.com/about/developers) whenever it gets available. Unzip the archive and put all *.txt* files into **gtfs** folder.
