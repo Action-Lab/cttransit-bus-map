@@ -44,7 +44,9 @@
         text-decoration: underline;
       }
       .leaflet-popup-content {
-        font-size: 16px;
+        font-size: 14px;
+        margin: 10px 14px;
+        line-height: 1.2;
       }
       .bus-icon {
         border: 0;
@@ -82,7 +84,7 @@
           var route = L.geoJSON(data, {style: {
               color: color,
               weight: 5,
-              opacity: 0.8
+              opacity: 0.6
             }
           }).addTo(map);
 
@@ -93,18 +95,20 @@
         });
       };
 
-      addRoute('37-39', '#8000FF');
-      addRoute('41', '#FF0000');
+      addRoute('37-39', '#0000FF');
+      addRoute('41', '#0000FF');
       addRoute('61', '#FF0000');
 
       // Only display the following route_ids:
       //var routesToDisplay = ['9005', '9131', '9134', '9008', '9021', '9147']; // Old ids
       var routesToDisplay = ['9547', '9550', '9563']; // Updated on Dec. 4
 
+      var centerCoords = [41.754046, -72.680830] // between main campus and downtown campus
       var trinCoords = [41.7479, -72.6903];
+      var downtownCoords = [41.766537, -72.670216];
 
       var map = L.map('map', {
-        center: trinCoords,
+        center: centerCoords,
         zoom: 14,
         scrollWheelZoom: false,
       });
@@ -115,10 +119,21 @@
       var trinity = L.marker(trinCoords, {
         icon: L.icon({
           iconUrl: 'trinity.png',
-          iconSize: [48, 48]
+          iconSize: [64, 64],
+          popupAnchor: [-30, -24]
         })
       })
-      .bindPopup('<h3>Trinity College</h3> 300 Summit St <br> Hartford CT <br> 06106')
+      .bindPopup('Trinity College<br>300 Summit St')
+      .addTo(map);
+
+      var downtown = L.marker(downtownCoords, {
+        icon: L.icon({
+          iconUrl: 'trinity.png',
+          iconSize: [32, 32],
+          popupAnchor: [0, -16]
+        })
+      })
+      .bindPopup('Trinity College at<br>10 Constitution Plaza')
       .addTo(map);
 
       var routesData = {};
