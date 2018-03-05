@@ -79,6 +79,7 @@
       /**
        * Loads a .geojson file from routes/ and displays it on the map
        */
+
       function addRoute(number, color) {
         $.getJSON('routes/' + number + '.geojson', function(data) {
           var route = L.geoJSON(data, {style: {
@@ -90,7 +91,7 @@
 
           route.on('click', function(e) {
             L.DomEvent.stopPropagation(e);    // this is needed to prevent opening map's (not geojson's) popup
-            openPopup(e, 'Bus Route ' + number);
+            //openPopup(e, 'Bus Route ' + number);
           });
         });
       };
@@ -120,21 +121,23 @@
         icon: L.icon({
           iconUrl: 'trinity.png',
           iconSize: [64, 64],
-          popupAnchor: [-30, -24]
+          popupAnchor: [0,0]
         })
       })
-      .bindPopup('Trinity College<br>300 Summit St')
-      .addTo(map);
+      .bindPopup('Trinity College<br>300 Summit St', {autoClose: false})
+      .addTo(map)
+      .openPopup();
 
       var downtown = L.marker(downtownCoords, {
         icon: L.icon({
           iconUrl: 'trinity.png',
           iconSize: [32, 32],
-          popupAnchor: [0, -16]
+          popupAnchor: [0,0],
         })
       })
-      .bindPopup('Trinity College at<br>10 Constitution Plaza')
-      .addTo(map);
+      .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
+      .addTo(map)
+      .openPopup();
 
       var routesData = {};
       var tripsData = {};
@@ -168,6 +171,49 @@
 
       function addTrinityStops() {
         var busStops = [
+          {
+            //id: '2152',
+            name: 'New Britain Ave and Henry St (near The Tap)',
+            lat: 41.743587,
+            lon: -72.689772
+          },
+          {
+            //id: '8028',
+            name: 'Main St and Arch St (Hartford Public Library, City Hall, Wadsworth)',
+            lat: 41.762445,
+            lon: -72.674253
+          },
+          {
+            //id: '7841',
+            name: 'Main St and Pearl St (Gold Building, back to campus)',
+            lat: 41.774076,
+            lon: -72.521346
+          },
+          {
+            //id: '597',
+            name: 'Broad St and Vernon St (Trinfo Cafe)',
+            lat: 41.751404,
+            lon: -72.686959
+          },
+          {
+            //id: '8025',
+            name: 'Capitol Ave and State Library (State Capitol)',
+            lat: 41.762884,
+            lon: -72.683035
+          },
+          {
+            //id: '7897',
+            name: 'Pearl St and Lewis St (walk to 10 Constitution Plaza)',
+            lat: 41.766092,
+            lon: -72.675178
+          },
+          {
+            //id: '53',
+            name: 'Main St and Gold St (across from Wadsworth Museum, back to campus)',
+            lat: 41.764276,
+            lon: -72.673946
+          }
+          /*
           // RECOMMENDED stops on 37-39-41 and then 61
           // ADD THIS BACK when CT transit sign is installed
           // {
@@ -181,49 +227,7 @@
           //   name: 'Main St and Central Row', // walk to 10 Constitution Plaza
           //   lat: 41.765650,
           //   lon: -72.672417
-          // },
-          {
-            id: '2152',
-            name: 'New Britain Ave and Henry St',
-            lat: 41.743587,
-            lon: -72.689772
-          },
-          {
-            id: '8028',
-            name: 'Main St and Arch St',
-            lat: 41.762445,
-            lon: -72.674253
-          },
-          {
-            id: '7841',
-            name: 'Main St and Pearl St',
-            lat: 41.774076,
-            lon: -72.521346
-          },
-          {
-            id: '597',
-            name: 'Broad St and Vernon St',
-            lat: 41.751404,
-            lon: -72.686959
-          },
-          {
-            id: '8025',
-            name: 'Capitol Ave and State Library',
-            lat: 41.762884,
-            lon: -72.683035
-          },
-          {
-            id: '7897',
-            name: 'Pearl St and Lewis St',
-            lat: 41.766092,
-            lon: -72.675178
-          },
-          {
-            id: '53',
-            name: 'Main St and Gold St',
-            lat: 41.764276,
-            lon: -72.673946
-          }
+          // }, */
         ];
 
         var busStopIcon = L.icon({
@@ -236,9 +240,12 @@
 
         for (i in busStops) {
           var s = busStops[i];
-          busStopsMarkers.push(new L.marker([s.lat, s.lon], {icon: busStopIcon}).addTo(map));
+          var marker = new L.marker([s.lat, s.lon], {icon: busStopIcon});
+          marker.addTo(map).bindPopup(s.name);
+          busStopsMarkers.push(marker);
         }
 
+        /*
         function formatSchedule(data) {
           data = data.slice(0,9);
           data.sort(function(a, b) {
@@ -252,31 +259,7 @@
             result += data[i].arrival_time.substring(0,5) + ' <span style="color:white;background:#' + routesData[tripsData[data[i].trip_id].route_id].route_color + '">'  + routesData[tripsData[data[i].trip_id].route_id].route_short_name + '</span><br>';
           }
           return result;
-        }
-/*
-        $.get('gtfs/stop_times.txt', function(file) {
-          Papa.parse(file, {
-            header: true,
-            complete: function(data) {
-              for (i in data.data) {
-                var p = data.data[i];
-                if ( $.inArray(p.stop_id, busStops.map(function(x) {return x.id})) > -1 ) {
-                  if ( $.inArray(tripsData[p.trip_id].route_id, routesToDisplay) > -1 ) {
-                    if (!stopsData[p.stop_id]) {
-                      stopsData[p.stop_id] = [];
-                    }
-                    stopsData[p.stop_id].push(p);
-                  }
-                }
-              }
-              //
-              for (i in busStopsMarkers) {
-                var m = busStopsMarkers[i];
-                m.bindPopup(formatSchedule(stopsData[busStops[i].id]));
-              }
-            }
-          });
-        }); */
+        } */
       };
 
       var jsonUrl = 'https://ilyankou.domains.trincoll.edu/cttransit';
