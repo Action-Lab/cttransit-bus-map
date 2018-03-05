@@ -68,6 +68,33 @@
       .bus-icon span {
         z-index: 99999;
       }
+      .legend {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255,255,255,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+      }
+      .legend h4 {
+        margin: 0 0 5px;
+      }
+
+      .line {
+        display: inline-block;
+        width: 40px;
+        border-top: 5px solid red;
+        vertical-align: middle;
+        height: 0.1em;
+      }
+
+      .blue-line {
+        border-top: 5px solid blue;
+      }
+
+      .red-line {
+        border-top: 5px solid red;
+      }
     </style>
   </head>
 
@@ -89,10 +116,11 @@
             }
           }).addTo(map);
 
+          /*
           route.on('click', function(e) {
             L.DomEvent.stopPropagation(e);    // this is needed to prevent opening map's (not geojson's) popup
             //openPopup(e, 'Bus Route ' + number);
-          });
+          }); */
         });
       };
 
@@ -138,6 +166,20 @@
       .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
       .addTo(map)
       .openPopup();
+
+      // Add legend
+      var legend = L.control({'position': 'bottomright'});
+      legend.onAdd = function (map) {
+          this._div = L.DomUtil.create('div', 'legend');
+          var content = '<h4>Bus routes near Trinity</h4>';
+          content += '<span class="line blue-line"> </span> 37-39-41<br>';
+          content += '<span class="line red-line"> </span> 61';
+
+          this._div.innerHTML = content;
+          return this._div;
+      };
+      legend.addTo(map);
+
 
       var routesData = {};
       var tripsData = {};
