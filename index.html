@@ -333,7 +333,7 @@
                   color:' + textColor + ';\
                   ">' + busNumber + '</span>\
                 <br>\
-                <img src="bus.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
+                <img src="bus' + (busNumber == 61 ? '-red' : '') + '.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
 
               var glyph = L.divIcon({
                 html: glyphContent,
