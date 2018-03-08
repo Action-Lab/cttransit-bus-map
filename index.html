@@ -156,8 +156,8 @@
         icon: L.icon({
           iconUrl: 'icons/trinity.png',
           iconSize: [64, 64],
-          //popupAnchor: [-28, -24]
-          popupAnchor: [0,0]
+          popupAnchor: [-28, -24],
+          //popupAnchor: [0,0]
         })
       })
       .bindPopup('Trinity College<br>300 Summit St', {autoClose: false})
@@ -168,8 +168,8 @@
         icon: L.icon({
           iconUrl: 'icons/trinity.png',
           iconSize: [32, 32],
-          //popupAnchor: [16, -16],
-          popupAnchor: [0,0]
+          popupAnchor: [16, -16],
+          //popupAnchor: [0,0]
         })
       })
       .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
@@ -330,8 +330,9 @@
 
             if (!vehicles[obj.id]) {
               var busNumber = routesData[obj.vehicle.trip.route_id].route_short_name;
-              var bgColor = '#' + routesData[obj.vehicle.trip.route_id].route_color;
-              var textColor = '#' + routesData[obj.vehicle.trip.route_id].route_text_color;
+
+              var bgColor = busNumber == 61 ? 'red' : 'blue'; // '#' + routesData[obj.vehicle.trip.route_id].route_color;
+              var textColor = 'white'; //'#' + routesData[obj.vehicle.trip.route_id].route_text_color;
 
               var direction = 0;
               if (tripsData[obj.vehicle.trip.trip_id]) {
