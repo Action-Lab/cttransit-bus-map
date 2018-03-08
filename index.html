@@ -149,7 +149,7 @@
         icon: L.icon({
           iconUrl: 'trinity.png',
           iconSize: [64, 64],
-          popupAnchor: [0,0]
+          popupAnchor: [-28, -24]
         })
       })
       .bindPopup('Trinity College<br>300 Summit St', {autoClose: false})
@@ -160,7 +160,7 @@
         icon: L.icon({
           iconUrl: 'trinity.png',
           iconSize: [32, 32],
-          popupAnchor: [0,0],
+          popupAnchor: [16, -16],
         })
       })
       .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
@@ -171,7 +171,7 @@
       var legend = L.control({'position': 'bottomright'});
       legend.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'legend');
-          var content = '<h4>Bus routes near Trinity</h4>';
+          var content = '<h4>Bus routes near Trinity<br>with real-time data</h4>';
           content += '<span class="line blue-line"> </span> 37-39-41<br>';
           content += '<span class="line red-line"> </span> 61';
 
