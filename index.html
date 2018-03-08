@@ -69,6 +69,7 @@
         z-index: 99999;
       }
       .legend {
+        min-width: 200px;
         padding: 6px 8px;
         font: 14px/16px Arial, Helvetica, sans-serif;
         background: white;
@@ -94,6 +95,12 @@
 
       .red-line {
         border-top: 5px solid red;
+      }
+
+      .icon {
+        height: 1.2em;
+        margin: 0;
+        margin-right: 5px;
       }
     </style>
   </head>
@@ -147,9 +154,10 @@
 
       var trinity = L.marker(trinCoords, {
         icon: L.icon({
-          iconUrl: 'trinity.png',
+          iconUrl: 'icons/trinity.png',
           iconSize: [64, 64],
-          popupAnchor: [-28, -24]
+          //popupAnchor: [-28, -24]
+          popupAnchor: [0,0]
         })
       })
       .bindPopup('Trinity College<br>300 Summit St', {autoClose: false})
@@ -158,9 +166,10 @@
 
       var downtown = L.marker(downtownCoords, {
         icon: L.icon({
-          iconUrl: 'trinity.png',
+          iconUrl: 'icons/trinity.png',
           iconSize: [32, 32],
-          popupAnchor: [16, -16],
+          //popupAnchor: [16, -16],
+          popupAnchor: [0,0]
         })
       })
       .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
@@ -173,7 +182,9 @@
           this._div = L.DomUtil.create('div', 'legend');
           var content = '<h4>Bus routes near Trinity</h4>';
           content += '<span class="line blue-line"> </span> 37-39-41<br>';
-          content += '<span class="line red-line"> </span> 61';
+          content += '<span class="line red-line"> </span> 61 <br>';
+          content += '<img src="icons/bus-gray.png" class="icon"> Real-time bus locations<br>';
+          content += '<img src="icons/bus-stop.png" class="icon"> Recommended bus stops';
 
           this._div.innerHTML = content;
           return this._div;
@@ -273,7 +284,7 @@
         ];
 
         var busStopIcon = L.icon({
-          iconUrl: 'bus-stop.png',
+          iconUrl: 'icons/bus-stop.png',
           iconSize: [32, 32],
           iconAnchor: [16, 32]
         });
@@ -333,7 +344,7 @@
                   color:' + textColor + ';\
                   ">' + busNumber + '</span>\
                 <br>\
-                <img src="bus' + (busNumber == 61 ? '-red' : '') + '.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
+                <img src="icons/bus' + (busNumber == 61 ? '-red' : '') + '.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
 
               var glyph = L.divIcon({
                 html: glyphContent,
