@@ -7,8 +7,31 @@
 - http://www.trincoll.edu/StudentLife/transportation/Pages/default.aspx
 
 ### Maintaining the map
-1. Download fresh GTFS data for Hartford from [CTTransit Developers](https://www.cttransit.com/about/developers) whenever it gets available. Unzip the archive and put all *.txt* files into **gtfs** folder.
+1. Regularly download fresh GTFS data for Hartford from CTTransit Developers (https://www.cttransit.com/about/developers) whenever they update the file. Subscribe for alerts. Unzip the archive and place *routes.txt* and *trips.txt* files into **gtfs** folder.
 
 1. Make sure that `route_id`s are up-to-date:
-    * Go to `gtfs/trips.txt` and find all relevant bus routes. The first number in line is the `route_id`.
-    * In `index.html`, find the array variable **routesToDisplay** (as of January 6, 2018, it is on line 102) and make sure the ids listed there match the ones from *trips.txt*. Make sure to put them in single or double quotes (e.g. **'1023'** instead of **1023**).
+    * Go to `gtfs/trips.txt` and find all relevant bus routes near Trinity (37-39, 41, 61).
+    * The first number in line is the `route_id` which is longer 4-digit code (example: 9858 route_id matches the 37-39 route)
+    * In `index.html`, find the array variable **routesToDisplay** (as of 2018, around line 102) and make sure the ids listed there match the ones from *trips.txt*. Make sure to put them in single or double quotes (e.g. **'9858'** instead of **9858**).
+
+```
+var routesToDisplay = ['9858' /*37-39*/, '9861' /*41*/, '9874' /*61*/]; // Updated April 25, 2018
+```
+1. Push changes to GitHub repo
+
+1. The map also depends on a Python script to process the real-time feed. See `index.html` around line 292 reference to       
+```
+var jsonUrl = 'https://ct-transit.action-lab.org/';
+```
+
+which points to the action-lab.org ReclaimHosting file manager with this .htaccess script:
+
+```
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/actionla/real-time-feed"
+PassengerBaseURI "/"
+PassengerPython "/home/actionla/virtualenv/real-time-feed/2.7/bin/python2.7"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+```
+
+which runs a Python script in the virtual enviroment in action-lab.org ReclaimHosting account
