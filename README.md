@@ -13,10 +13,9 @@
     * Go to `gtfs/trips.txt` and find all relevant bus routes near Trinity (37-39, 41, 61).
     * The first number in line is the `route_id` which is longer 4-digit code (example: 9858 route_id matches the 37-39 route)
     * In `index.html`, find the array variable **routesToDisplay** (as of 2018, around line 102) and make sure the ids listed there match the ones from *trips.txt*. Make sure to put them in single or double quotes (e.g. **'9858'** instead of **9858**).
-
-```
-var routesToDisplay = ['9858' /*37-39*/, '9861' /*41*/, '9874' /*61*/]; // Updated April 25, 2018
-```
+    ```
+    var routesToDisplay = ['9858' /*37-39*/, '9861' /*41*/, '9874' /*61*/]; // Updated April 25, 2018
+    ```
 1. Push changes to GitHub repo
 
 1. The map also depends on a Python script to process the real-time feed. See `index.html` around line 292 reference to       
