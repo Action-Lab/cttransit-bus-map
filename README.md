@@ -35,3 +35,5 @@ PassengerPython "/home/actionla/virtualenv/real-time-feed/2.7/bin/python2.7"
 ```
 
 which runs a Python script in the virtual enviroment in action-lab.org ReclaimHosting account
+
+![](img/python-app-screenshot.png)
