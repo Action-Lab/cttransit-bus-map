@@ -1,4 +1,120 @@
 route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+10062,googleha_transit,101,,,3,,FF0000,FFFFFF
+10063,googleha_transit,102,,,3,,00E100,FFFFFF
+10064,googleha_transit,121,,,3,,0000FF,FFFFFF
+10065,googleha_transit,128,,,3,,950095,FFFFFF
+10066,googleha_transit,140,,,3,,0000FF,FFFFFF
+10067,googleha_transit,144,,,3,,804040,FFFFFF
+10068,googleha_transit,153,,,3,,FF8040,FFFFFF
+10069,googleha_transit,161,,,3,,8000FF,FFFFFF
+10070,googleha_transit,30,,,3,,FF0000,FFFFFF
+10071,googleha_transit,31-33,,,3,,0000FF,FFFFFF
+10072,googleha_transit,32-36,,,3,,FF8040,FFFFFF
+10073,googleha_transit,37-39,,,3,,8000FF,FFFFFF
+10074,googleha_transit,38,,,3,,0000FF,FFFFFF
+10075,googleha_transit,40-42,,,3,,CD1BA0,FFFFFF
+10076,googleha_transit,41,,,3,,FF0000,FFFFFF
+10077,googleha_transit,43,,,3,,6B52AD,FFFFFF
+10078,googleha_transit,44,,,3,,0064AE,FFFFFF
+10079,googleha_transit,45,,,3,,7DC181,FFFFFF
+10080,googleha_transit,46,,,3,,8000FF,FFFFFF
+10081,googleha_transit,47,,,3,,FF0000,FFFFFF
+10082,googleha_transit,50-54,,,3,,E007A5,FFFFFF
+10083,googleha_transit,53-55,,,3,,0000FF,FFFFFF
+10084,googleha_transit,542,,,3,,FF0000,FFFFFF
+10085,googleha_transit,56,,,3,,000000,FFFFFF
+10086,googleha_transit,58,,,3,,35588C,FFFFFF
+10087,googleha_transit,59,,,3,,BE4193,FFFFFF
+10088,googleha_transit,60-66,,,3,,8000FF,FFFFFF
+10089,googleha_transit,61,,,3,,FF0000,FFFFFF
+10090,googleha_transit,63,,,3,,0000FF,FFFFFF
+10091,googleha_transit,69,,,3,,004080,FFFFFF
+10092,googleha_transit,72,,,3,,FF0000,FFFFFF
+10093,googleha_transit,74,,,3,,0000A0,FFFFFF
+10094,googleha_transit,76,,,3,,FA6D05,FFFFFF
+10095,googleha_transit,80,,,3,,8000FF,FFFFFF
+10096,googleha_transit,82-84,,,3,,867DB0,FFFFFF
+10097,googleha_transit,83,,,3,,FF8000,FFFFFF
+10098,googleha_transit,85,,,3,,4040FF,FFFFFF
+10099,googleha_transit,86,,,3,,FF0000,FFFFFF
+10100,googleha_transit,87,,,3,,FF5353,FFFFFF
+10101,googleha_transit,88,,,3,,FF0000,FFFFFF
+10102,googleha_transit,901,,,3,,002F00,FFFFFF
+10103,googleha_transit,902,,,3,,FF0080,FFFFFF
+10104,googleha_transit,903,,,3,,00B0B0,FFFFFF
+10105,googleha_transit,904,,,3,,008080,FFFFFF
+10106,googleha_transit,905,,,3,,FF0000,FFFFFF
+10107,googleha_transit,906,,,3,,444DBB,FFFFFF
+10108,googleha_transit,907,,,3,,7D003F,FFFFFF
+10109,googleha_transit,909,,,3,,000080,FFFFFF
+10110,googleha_transit,91,,,3,,FF0000,FFFFFF
+10111,googleha_transit,910,,,3,,1C1CFF,FFFFFF
+10112,googleha_transit,912,,,3,,004000,FFFFFF
+10113,googleha_transit,913,,,3,,535300,FFFFFF
+10115,googleha_transit,914,,,3,,0000A0,FFFFFF
+10116,googleha_transit,915,,,3,,000000,FFFFFF
+10117,googleha_transit,917,,,3,,004000,FFFFFF
+10118,googleha_transit,918,,,3,,B35900,FFFFFF
+10119,googleha_transit,919,,,3,,6262FF,FFFFFF
+10120,googleha_transit,92,,,3,,FF0080,FFFFFF
+10121,googleha_transit,921,,,3,,004080,FFFFFF
+10122,googleha_transit,923,,,3,,FF0000,FFFFFF
+10123,googleha_transit,924,,,3,,804000,FFFFFF
+10124,googleha_transit,925,,,3,,FF00FF,FFFFFF
+10125,googleha_transit,926,,,3,,FF0000,FFFFFF
+10126,googleha_transit,927,,,3,,800080,FFFFFF
+10127,googleha_transit,928,,,3,,0000FF,FFFFFF
+10128,googleha_transit,94-96,,,3,,8000FF,FFFFFF
+10129,googleha_transit,95,,,3,,FF0000,FFFFFF
+10130,googleha_transit,950,,,3,,FF00FF,FFFFFF
+10131,googleha_transit,AHS,,,3,,FF0000,FFFFFF
+10132,googleha_transit,CBS,,,3,,008000,FFFFFF
+10133,googleha_transit,DASH,,,3,,400000,FFFFFF
+10136,googlestam_transit,311,,,3,,FD0000,FFFFFF
+10137,googlestam_transit,312,,,3,,800080,FFFFFF
+10138,googlestam_transit,313,,,3,,FF8080,FFFFFF
+10139,googlestam_transit,321,,,3,,5555FF,FFFFFF
+10140,googlestam_transit,324,,,3,,800080,FFFFFF
+10141,googlestam_transit,326,,,3,,C53A87,FFFFFF
+10142,googlestam_transit,327,,,3,,5CA36C,FFFFFF
+10143,googlestam_transit,328,,,3,,FF8040,FFFFFF
+10144,googlestam_transit,331,,,3,,0000FF,FFFFFF
+10145,googlestam_transit,333,,,3,,800040,FFFFFF
+10146,googlestam_transit,334,,,3,,FF0000,FFFFFF
+10147,googlestam_transit,335,,,3,,808080,FFFFFF
+10148,googlestam_transit,336,,,3,,0000A0,FFFFFF
+10149,googlestam_transit,341,,,3,,0080FF,FFFFFF
+10150,googlestam_transit,342,,,3,,808000,FFFFFF
+10151,googlestam_transit,344,,,3,,FF00FF,FFFFFF
+10152,googlestam_transit,345,,,3,,066A5E,FFFFFF
+10153,googlestam_transit,351,,,3,,FF0000,FFFFFF
+10154,googlestam_transit,971,,,3,,0000A8,FFFFFF
+10156,googlenh_transit,201,,,3,,0000FF,FFFFFF
+10157,googlenh_transit,204,,,3,,800080,FFFFFF
+10158,googlenh_transit,206,,,3,,BF0000,FFFFFF
+10159,googlenh_transit,212,,,3,,FF0000,FFFFFF
+10160,googlenh_transit,213,,,3,,008000,FFFFFF
+10161,googlenh_transit,215,,,3,,008000,FFFFFF
+10162,googlenh_transit,223,,,3,,FF00FF,FFFFFF
+10163,googlenh_transit,224,,,3,,AA0000,FFFFFF
+10164,googlenh_transit,228,,,3,,3535FF,FFFFFF
+10165,googlenh_transit,229,,,3,,00FFFF,FFFFFF
+10166,googlenh_transit,234,,,3,,008080,FFFFFF
+10167,googlenh_transit,237,,,3,,000080,FFFFFF
+10168,googlenh_transit,238,,,3,,808000,FFFFFF
+10169,googlenh_transit,241,,,3,,008040,FFFFFF
+10170,googlenh_transit,243,,,3,,800000,FFFFFF
+10171,googlenh_transit,246,,,3,,800000,FFFFFF
+10172,googlenh_transit,254,,,3,,808040,FFFFFF
+10173,googlenh_transit,255,,,3,,008080,FFFFFF
+10174,googlenh_transit,261,,,3,,BF4059,FFFFFF
+10175,googlenh_transit,265,,,3,,42CD32,FFFFFF
+10176,googlenh_transit,268,,,3,,FF0000,FFFFFF
+10177,googlenh_transit,271,,,3,,008080,FFFFFF
+10178,googlenh_transit,272,,,3,,A49DF9,FFFFFF
+10179,googlenh_transit,274,,,3,,FF4F4F,FFFFFF
+10180,googlenh_transit,278,,,3,,006A6A,FFFFFF
+10182,googlenh_transit,USS,,,3,,000080,FFFFFF
 9751,google_wa-me_transit,215*,,,3,,008000,FFFFFF
 9752,google_wa-me_transit,291,,,3,,000000,FFFFFF
 9753,google_wa-me_transit,292,,,3,,800080,FFFFFF
@@ -35,103 +151,6 @@ route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_
 9784,google_wa-me_transit,564,,,3,,0000FF,FFFFFF
 9785,google_wa-me_transit,565,,,3,,00FF00,FFFFFF
 9786,google_wa-me_transit,566,,,3,,00FF00,FFFFFF
-9847,googleha_transit,101,,,3,,FF0000,FFFFFF
-9848,googleha_transit,102,,,3,,00E100,FFFFFF
-9849,googleha_transit,121,,,3,,0000FF,FFFFFF
-9850,googleha_transit,128,,,3,,950095,FFFFFF
-9851,googleha_transit,140,,,3,,0000FF,FFFFFF
-9852,googleha_transit,144,,,3,,804040,FFFFFF
-9853,googleha_transit,153,,,3,,FF8040,FFFFFF
-9854,googleha_transit,161,,,3,,8000FF,FFFFFF
-9855,googleha_transit,30,,,3,,FF0000,FFFFFF
-9856,googleha_transit,31-33,,,3,,0000FF,FFFFFF
-9857,googleha_transit,32-36,,,3,,FF8040,FFFFFF
-9858,googleha_transit,37-39,,,3,,8000FF,FFFFFF
-9859,googleha_transit,38,,,3,,0000FF,FFFFFF
-9860,googleha_transit,40-42,,,3,,CD1BA0,FFFFFF
-9861,googleha_transit,41,,,3,,FF0000,FFFFFF
-9862,googleha_transit,43,,,3,,6B52AD,FFFFFF
-9863,googleha_transit,44,,,3,,0064AE,FFFFFF
-9864,googleha_transit,45,,,3,,7DC181,FFFFFF
-9865,googleha_transit,46,,,3,,8000FF,FFFFFF
-9866,googleha_transit,47,,,3,,FF0000,FFFFFF
-9867,googleha_transit,50-54,,,3,,E007A5,FFFFFF
-9868,googleha_transit,53-55,,,3,,0000FF,FFFFFF
-9869,googleha_transit,542,,,3,,FF0000,FFFFFF
-9870,googleha_transit,56,,,3,,000000,FFFFFF
-9871,googleha_transit,58,,,3,,35588C,FFFFFF
-9872,googleha_transit,59,,,3,,BE4193,FFFFFF
-9873,googleha_transit,60-66,,,3,,8000FF,FFFFFF
-9874,googleha_transit,61,,,3,,FF0000,FFFFFF
-9875,googleha_transit,63,,,3,,0000FF,FFFFFF
-9876,googleha_transit,69,,,3,,004080,FFFFFF
-9877,googleha_transit,72,,,3,,FF0000,FFFFFF
-9878,googleha_transit,74,,,3,,0000A0,FFFFFF
-9879,googleha_transit,76,,,3,,FA6D05,FFFFFF
-9880,googleha_transit,80,,,3,,8000FF,FFFFFF
-9881,googleha_transit,82-84,,,3,,867DB0,FFFFFF
-9882,googleha_transit,83,,,3,,FF8000,FFFFFF
-9883,googleha_transit,85,,,3,,4040FF,FFFFFF
-9884,googleha_transit,86,,,3,,FF0000,FFFFFF
-9885,googleha_transit,87,,,3,,FF5353,FFFFFF
-9886,googleha_transit,88,,,3,,FF0000,FFFFFF
-9887,googleha_transit,901,,,3,,002F00,FFFFFF
-9888,googleha_transit,902,,,3,,FF0080,FFFFFF
-9889,googleha_transit,903,,,3,,00B0B0,FFFFFF
-9890,googleha_transit,904,,,3,,008080,FFFFFF
-9891,googleha_transit,905,,,3,,FF0000,FFFFFF
-9892,googleha_transit,906,,,3,,444DBB,FFFFFF
-9893,googleha_transit,907,,,3,,7D003F,FFFFFF
-9894,googleha_transit,909,,,3,,000080,FFFFFF
-9895,googleha_transit,91,,,3,,FF0000,FFFFFF
-9896,googleha_transit,910,,,3,,1C1CFF,FFFFFF
-9897,googleha_transit,912,,,3,,004000,FFFFFF
-9898,googleha_transit,913,,,3,,535300,FFFFFF
-9900,googleha_transit,914,,,3,,0000A0,FFFFFF
-9901,googleha_transit,915,,,3,,000000,FFFFFF
-9902,googleha_transit,917,,,3,,004000,FFFFFF
-9903,googleha_transit,918,,,3,,B35900,FFFFFF
-9904,googleha_transit,919,,,3,,6262FF,FFFFFF
-9905,googleha_transit,92,,,3,,FF0080,FFFFFF
-9906,googleha_transit,921,,,3,,004080,FFFFFF
-9907,googleha_transit,923,,,3,,FF0000,FFFFFF
-9908,googleha_transit,924,,,3,,804000,FFFFFF
-9909,googleha_transit,925,,,3,,FF00FF,FFFFFF
-9910,googleha_transit,926,,,3,,FF0000,FFFFFF
-9911,googleha_transit,927,,,3,,800080,FFFFFF
-9912,googleha_transit,928,,,3,,0000FF,FFFFFF
-9913,googleha_transit,94-96,,,3,,8000FF,FFFFFF
-9914,googleha_transit,95,,,3,,FF0000,FFFFFF
-9915,googleha_transit,950,,,3,,FF00FF,FFFFFF
-9916,googleha_transit,AHS,,,3,,FF0000,FFFFFF
-9917,googleha_transit,CBS,,,3,,008000,FFFFFF
-9918,googleha_transit,DASH,,,3,,400000,FFFFFF
-9921,googlenh_transit,201,NEW HAVEN/MADISON,,3,,0000FF,FFFFFF
-9922,googlenh_transit,204,NEW HAVEN/EAST HAVEN,,3,,800080,FFFFFF
-9923,googlenh_transit,206,EAST CHAPEL STREET,,3,,BF0000,FFFFFF
-9924,googlenh_transit,212,GRAND AVENUE,,3,,FF0000,FFFFFF
-9925,googlenh_transit,213,NEW HAVEN/NORTH BRANFORD,,3,,008000,FFFFFF
-9926,googlenh_transit,215,NEW HAVEN/WALLINGFORD/MERIDEN,,3,,008000,FFFFFF
-9927,googlenh_transit,223,LOMBARD STREET,,3,,FF00FF,FFFFFF
-9928,googlenh_transit,224,STATE STREET,,3,,AA0000,FFFFFF
-9929,googlenh_transit,228,WHITNEY AVENUE,,3,,3535FF,FFFFFF
-9930,googlenh_transit,229,NEW HAVEN/WATERBURY,,3,,00FFFF,FFFFFF
-9931,googlenh_transit,234,WINCHESTER AVENUE,,3,,008080,FFFFFF
-9932,googlenh_transit,237,SHELTON AVENUE,,3,,000080,FFFFFF
-9933,googlenh_transit,238,DIXWELL AVENUE,,3,,808000,FFFFFF
-9934,googlenh_transit,241,GOFFE STREET,,3,,008040,FFFFFF
-9935,googlenh_transit,243,WHALLEY AVENUE,,3,,800000,FFFFFF
-9936,googlenh_transit,246,EDGEWOOD AVENUE,,3,,800000,FFFFFF
-9937,googlenh_transit,254,WEST CHAPEL STREET,,3,,808040,FFFFFF
-9938,googlenh_transit,255,NEW HAVEN/ANSONIA/SEYMOUR,,3,,008080,FFFFFF
-9939,googlenh_transit,261,BOSTON POST ROAD,,3,,BF4059,FFFFFF
-9940,googlenh_transit,265,CONGRESS AVENUE,,3,,42CD32,FFFFFF
-9941,googlenh_transit,268,WASHINGTON AVENUE,,3,,FF0000,FFFFFF
-9942,googlenh_transit,271,KIMBERLY AVENUE,,3,,008080,FFFFFF
-9943,googlenh_transit,272,UNION AVENUE,,3,,A49DF9,FFFFFF
-9944,googlenh_transit,274,SARGENT DRIVE,,3,,FF4F4F,FFFFFF
-9945,googlenh_transit,278,NEW HAVEN CONNECTOR,,3,,006A6A,FFFFFF
-9947,googlenh_transit,USS,UNION STATION SHUTTLE,,3,,000080,FFFFFF
 9948,googlenb_transit,501,,,3,,A400A4,FFFFFF
 9949,googlenb_transit,502,,,3,,FF80FF,FFFFFF
 9950,googlenb_transit,503,,,3,,FF0000,FFFFFF
