@@ -10,7 +10,7 @@
 
 http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json
 
-* NOT currently provided with https secure *
+NOT currently provided with https secure
 
 ### Maintaining the map
 1. Regularly download fresh GTFS data for Hartford from CTTransit Developers (https://www.cttransit.com/about/developers) whenever they update the file. Subscribe for alerts. Unzip the archive and place *routes.txt* and *trips.txt* files into **gtfs** folder.
