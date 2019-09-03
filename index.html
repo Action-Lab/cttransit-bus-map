@@ -89,6 +89,10 @@
         border-top: 5px solid blue;
       }
 
+      .green-line {
+        border-top: 5px solid green;
+      }
+
       .red-line {
         border-top: 5px solid red;
       }
@@ -106,6 +110,7 @@
     <div id="map"></div>
 
     <script>
+
       /**
        * Loads a .geojson file from routes/ and displays it on the map
        */
@@ -121,8 +126,8 @@
         });
       };
 
-      addRoute('37-39', '#0000FF');
-      addRoute('41', '#0000FF');
+      addRoute('37-39', '#008000');
+      addRoute('41', '#008000');
       addRoute('61', '#FF0000');
 
       // Only display the following route_ids:
@@ -174,7 +179,7 @@
       legend.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'legend');
           var content = '<h4>Bus routes near Trinity</h4>';
-          content += '<span class="line blue-line"> </span> 37-39-41<br>';
+          content += '<span class="line green-line"> </span> 37-39-41<br>';
           content += '<span class="line red-line"> </span> 61 <br>';
           content += '<img src="icons/bus-gray.png" class="icon"> Real-time bus locations<br>';
           content += '<img src="icons/bus-stop.png" class="icon"> Recommended bus stops';
@@ -308,7 +313,7 @@
             if (!vehicles[obj.id]) {
               var busNumber = routesData[obj.vehicle.trip.route_id].route_short_name;
 
-              var bgColor = busNumber == 61 ? 'red' : 'blue';
+              var bgColor = busNumber == 61 ? 'red' : 'green';
               var textColor = 'white';
 
               var direction = 0;
