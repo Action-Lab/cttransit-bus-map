@@ -28,7 +28,7 @@ NOT currently provided with https secure
 
 1. The map also depends on a Python script to process the real-time feed. See `index.html` around line 293 reference to       
 ```
-var jsonUrl = 'https://ct-transit.action-lab.org/';
+var jsonUrl = 'https://cttransit.action-lab.org/';
 ```
 
 which points to the action-lab.org ReclaimHosting file manager with this .htaccess script:
