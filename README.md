@@ -1,10 +1,9 @@
 # CTTransit Real Time Bus Data for Trinity College
 
 ## Embedded on several pages
-- http://commons.trincoll.edu/action-lab/transportation/
-- http://commons.trincoll.edu/cli/transportation/
-- http://www.trinfocafe.org/index.php/transportation/
-- http://www.trincoll.edu/StudentLife/transportation/Pages/default.aspx
+- https://cher.trincoll.edu/transportation/
+- https://trinfocafe.org/index.php/transportation/
+- https://www.trincoll.edu/StudentLife/transportation/
 
 ### CT Transit real-time bus location data feed
 
