@@ -3,106 +3,22 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>CTtransit Bus Positions in Real Time</title>
+    <title>Trinity College CTtransit Bus Positions in Real Time</title>
+    
+    <!-- Load jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <!-- Load Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.5/papaparse.min.js"></script>
+    <!-- Load local styles -->
+    <link rel="stylesheet" href="style.css">
 
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial;
-      }
-      #map {
-        width: 100vw;
-        height: 100vh;
-      }
-      #schedule {
-        position: absolute;
-        z-index: 999;
-        top: 10px;
-        left: 10px;
-        background: white;
-        padding: 10px 15px;
-      }
-      span {
-        padding: 0 2px;
-      }
-      a, a:hover, a:visited {
-        color: rgb(58, 132, 223);
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .leaflet-popup-content {
-        font-size: 14px;
-        margin: 10px 14px;
-        line-height: 1.2;
-      }
-      .bus-icon {
-        border: 0;
-        font-size: 11px;
-        text-align: center;
-        line-height: 10px;
-      }
-      .bus-icon img {
-        height: 32px;
-      }
-      .bus-icon img.downtown {
-        -moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        filter: FlipH;
-        -ms-filter: "FlipH";
-      }
-      .bus-icon span {
-        z-index: 99999;
-      }
-      .legend {
-        min-width: 200px;
-        padding: 6px 8px;
-        font: 14px/16px Arial, Helvetica, sans-serif;
-        background: white;
-        background: rgba(255,255,255,0.8);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        border-radius: 5px;
-      }
-      .legend h4 {
-        margin: 0 0 5px;
-      }
-
-      .line {
-        display: inline-block;
-        width: 40px;
-        border-top: 5px solid red;
-        vertical-align: middle;
-        height: 0.1em;
-      }
-
-      .blue-line {
-        border-top: 5px solid blue;
-      }
-
-      .green-line {
-        border-top: 5px solid green;
-      }
-
-      .red-line {
-        border-top: 5px solid red;
-      }
-
-      .icon {
-        height: 1.2em;
-        margin: 0;
-        margin-right: 5px;
-      }
-    </style>
   </head>
 
   <body>
@@ -111,72 +27,70 @@
 
     <script>
 
-      /**
-       * Loads a .geojson file from routes/ and displays it on the map
-       */
+      // Declare constants
+      var INIT_COORDS = [41.754046, -72.680830] // between main campus and downtown campus
+      var TRIN_COORDS = [41.7479, -72.6903];
+      var DOWNTOWN_COORDS = [41.766537, -72.670216];
 
-      function addRoute(number, color) {
-        $.getJSON('routes/' + number + '.geojson', function(data) {
-          var route = L.geoJSON(data, {style: {
-              color: color,
+
+      // Initialize map
+      var map = L.map('map', {
+        center: INIT_COORDS,
+        zoom: 14,
+        scrollWheelZoom: false,
+      });
+
+
+      // Add baselayer
+      L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg').addTo(map);
+
+
+      // Add bus routes (GeoJSON polylines)
+      [
+        {route: '37-39', color: '#008000'},
+        {route: '41', color: '#008000'},
+        {route: '61', color: '#ff0000'}
+      ].map(function(o) {
+
+        $.getJSON('routes/' + o.route + '.geojson', function(geojson) {
+          var route = L.geoJSON(geojson, {style: {
+              color: o.color,
               weight: 5,
               opacity: 0.6
             }
           }).addTo(map);
         });
-      };
 
-      addRoute('37-39', '#008000');
-      addRoute('41', '#008000');
-      addRoute('61', '#FF0000');
-
-      // Only display the following route_ids:
-      //var routesToDisplay = ['9005', '9131', '9134', '9008', '9021', '9147']; // Old ids
-      //var routesToDisplay = ['9547', '9550', '9563']; // Updated on Dec. 4, 2017
-      //var routesToDisplay = ['9858' /*37-39*/, '9861' /*41*/, '9874' /*61*/]; // Updated April 25, 2018
-      //var routesToDisplay = ['10073' /*37-39*/, '10076' /*41*/, '10089' /*61*/]; // Updated Aug 28, 2018
-      //var routesToDisplay = ['10073', '10195' /*37-39*/, '10076', '10198', /*41*/ '10089', '10211' /*61*/]; // Updated Nov 26, 2018
-      //var routesToDisplay = ['10605' /*37-39*/, '10608', /*41*/ '10621' /*61*/]; // Updated May 29, 2019
-      var routesToDisplay = ['10605', '10749' /*37-39*/, '10608', '10752', /*41*/, '10766', '10621' /*61*/]; // Updated Sept 19, 2019
-
-      var centerCoords = [41.754046, -72.680830] // between main campus and downtown campus
-      var trinCoords = [41.7479, -72.6903];
-      var downtownCoords = [41.766537, -72.670216];
-
-      var map = L.map('map', {
-        center: centerCoords,
-        zoom: 14,
-        scrollWheelZoom: false,
       });
 
-      var baseLayer = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg');
-      baseLayer.addTo(map);
 
-      var trinity = L.marker(trinCoords, {
+      // Add Trinity main campus icon
+      var trinity = L.marker(TRIN_COORDS, {
         icon: L.icon({
           iconUrl: 'icons/trinity.png',
           iconSize: [64, 64],
-          popupAnchor: [-28, -24],
+          popupAnchor: [0, -24],
         })
-      })
-      .bindPopup('Trinity College<br>300 Summit St', {autoClose: false})
-      .addTo(map)
-      .openPopup();
+      }).bindPopup('Trinity College<br>300 Summit St', { autoClose: false })
+        .addTo(map)
+        .openPopup();
 
-      var downtown = L.marker(downtownCoords, {
+
+      // Add Trinity downtown logo
+      var downtown = L.marker(DOWNTOWN_COORDS, {
         icon: L.icon({
           iconUrl: 'icons/trinity.png',
           iconSize: [32, 32],
-          popupAnchor: [16, -16],
-          //popupAnchor: [0,0]
+          popupAnchor: [0, -16],
         })
       })
-      .bindPopup('Trinity College at<br>10 Constitution Plaza', {autoClose: false})
-      .addTo(map)
-      .openPopup();
+        .bindPopup('Trinity College at<br>10 Constitution Plaza', { autoClose: false })
+        .addTo(map)
+        .openPopup();
+
 
       // Add legend
-      var legend = L.control({'position': 'bottomright'});
+      var legend = L.control({ 'position': 'bottomright' });
       legend.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'legend');
           var content = '<h4>Bus routes near Trinity</h4>';
@@ -191,165 +105,112 @@
       legend.addTo(map);
 
 
-      var routesData = {};
-      var tripsData = {};
-      var stopsData = {};
+      // Add bus stops icons
+      [
+        {
+          name: 'New Britain Ave and Henry St (near The Tap)', // id: '2152',
+          lat: 41.743587, lon: -72.689772
+        },
+        {
+          name: 'Main St and Arch St (Hartford Public Library, City Hall, Wadsworth)', //id: '8028',
+          lat: 41.762445,lon: -72.674253
+        },
+        {
+          name: 'Main St and Pearl St (Gold Building, back to campus)', //id: '7841',
+          lat: 41.774076, lon: -72.521346
+        },
+        {
+          name: 'Broad St and Vernon St (Trinfo Cafe)', //id: '597',
+          lat: 41.751404, lon: -72.686959
+        },
+        {
+          name: 'Capitol Ave and State Library (State Capitol)', //id: '8025',
+          lat: 41.762884, lon: -72.683035
+        },
+        {
+          name: 'Pearl St and Lewis St (walk to 10 Constitution Plaza)', //id: '7897',
+          lat: 41.766092, lon: -72.675178
+        },
+        {
+          name: 'Main St and Gold St (across from Wadsworth Museum, back to campus)', //id: '53',
+          lat: 41.764276, lon: -72.673946
+        }
+      ].map(function(o) {
 
-      // Load routes.txt to get bus number and colors by route_id
-      $.get('gtfs/routes.txt', function(fileData) {
-        Papa.parse(fileData, {
-          header: true,
-          complete: function(data) {
-            for (i in data.data) {
-              routesData[data.data[i].route_id] = data.data[i];
-            }
+        L.marker([o.lat, o.lon], {icon: L.icon({
+            iconUrl: 'icons/bus-stop.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+          })
+        }).addTo(map).bindPopup(o.name);
 
-            // Load trips.txt to get direction and trip_headsign by trip_id
-            $.get('gtfs/trips.txt', function(fileData) {
-              Papa.parse(fileData, {
-                header: true,
-                complete: function(data) {
-                  for (i in data.data) {
-                    tripsData[data.data[i].trip_id] = data.data[i];
-                  }
-                  updatePositions();
-                  addTrinityStops();
-                }
-              })
-            });
-          }
-        });
       });
 
-      function addTrinityStops() {
-        var busStops = [
-          {
-            //id: '2152',
-            name: 'New Britain Ave and Henry St (near The Tap)',
-            lat: 41.743587,
-            lon: -72.689772
-          },
-          {
-            //id: '8028',
-            name: 'Main St and Arch St (Hartford Public Library, City Hall, Wadsworth)',
-            lat: 41.762445,
-            lon: -72.674253
-          },
-          {
-            //id: '7841',
-            name: 'Main St and Pearl St (Gold Building, back to campus)',
-            lat: 41.774076,
-            lon: -72.521346
-          },
-          {
-            //id: '597',
-            name: 'Broad St and Vernon St (Trinfo Cafe)',
-            lat: 41.751404,
-            lon: -72.686959
-          },
-          {
-            //id: '8025',
-            name: 'Capitol Ave and State Library (State Capitol)',
-            lat: 41.762884,
-            lon: -72.683035
-          },
-          {
-            //id: '7897',
-            name: 'Pearl St and Lewis St (walk to 10 Constitution Plaza)',
-            lat: 41.766092,
-            lon: -72.675178
-          },
-          {
-            //id: '53',
-            name: 'Main St and Gold St (across from Wadsworth Museum, back to campus)',
-            lat: 41.764276,
-            lon: -72.673946
-          }
-          /*
-          // RECOMMENDED stops on 37-39-41 and then 61
-          // ADD THIS BACK when CT transit sign is installed
-          // {
-          //   id: '2153',
-          //   name: 'New Britain Ave and Trinity Skating Ring',
-          //   lat: 41.744452,
-          //   lon: -72.688232
-          // },
-          // {
-          //   id: '0000',
-          //   name: 'Main St and Central Row', // walk to 10 Constitution Plaza
-          //   lat: 41.765650,
-          //   lon: -72.672417
-          // }, */
-        ];
+      
+      // Load trips.json data file, fetch bus locations, and start updating
+      $.getJSON('gtfs/trips.json', function(trips) {
+        var markers = {};
 
-        var busStopIcon = L.icon({
-          iconUrl: 'icons/bus-stop.png',
-          iconSize: [32, 32],
-          iconAnchor: [16, 32]
-        });
+        var updatePositions = function() {
+          $.getJSON('https://cttransit.action-lab.org/', function(feed) {
 
-        var busStopsMarkers = [];
+            for (var i in feed.entity) {
+              var obj = feed.entity[i];
+              var route = parseInt(obj.vehicle.trip.route_id);
+              var trip = parseInt(obj.vehicle.trip.trip_id);
 
-        for (i in busStops) {
-          var s = busStops[i];
-          var marker = new L.marker([s.lat, s.lon], {icon: busStopIcon});
-          marker.addTo(map).bindPopup(s.name);
-          busStopsMarkers.push(marker);
-        }
-      };
+              // Only display buses that follow relevant trips (from trips.json)
+              if ( trips[trip] ) {
+                var lat = obj.vehicle.position.latitude;
+                var lng = obj.vehicle.position.longitude;
 
-      var jsonUrl = 'https://cttransit.action-lab.org/';
-      var vehicles = {};
+                // Only add same buses once
+                if ( !markers[obj.id] ) {
+                  var busNumber = trips[trip].trip_headsign.split(' ')[0];
+                  var is61 = busNumber.indexOf('61') === 0;     // `61` or `61D` etc
 
-      function updatePositions() {
-        $.getJSON(jsonUrl, function(data) {
-          for (i in data.entity) {
-            var obj = data.entity[i];
+                  var bgColor = is61 ? 'red' : 'green';
+                  var direction = trips[trip].direction_id + '';
 
-            if ($.inArray(obj.vehicle.trip.route_id, routesToDisplay) == -1) continue;
+                  var glyphContent = '\
+                    <span style="\
+                      background:' + bgColor + ';\
+                      color: white;\
+                      ">' + busNumber + '</span>\
+                    <br>\
+                    <img src="icons/bus' + (is61 ? '-red' : '') + '.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
 
-            var lat = obj.vehicle.position.latitude;
-            var lng = obj.vehicle.position.longitude;
+                  var glyph = L.divIcon({
+                    html: glyphContent,
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 20],
+                    className: 'bus-icon',
+                  });
 
-            if (!vehicles[obj.id]) {
-              var busNumber = routesData[obj.vehicle.trip.route_id].route_short_name;
+                  var popup = 'Bus ' + trips[trip].trip_headsign;
+                  markers[obj.id] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
+                }
 
-              var bgColor = busNumber == 61 ? 'red' : 'green';
-              var textColor = 'white';
-
-              var direction = 0;
-              if (tripsData[obj.vehicle.trip.trip_id]) {
-                direction = tripsData[obj.vehicle.trip.trip_id].direction_id;
+                markers[obj.id].setLatLng(new L.latLng(lat, lng));
               }
-
-              var glyphContent = '\
-                <span style="\
-                  background:' + bgColor + ';\
-                  color:' + textColor + ';\
-                  ">' + busNumber + '</span>\
-                <br>\
-                <img src="icons/bus' + (busNumber == 61 ? '-red' : '') + '.png" ' + (direction == '1' ? '' : ' class="downtown"') + '>';
-
-              var glyph = L.divIcon({
-                html: glyphContent,
-                iconSize: [40, 40],
-                iconAnchor: [20, 20],
-                className: 'bus-icon',
-              });
-
-              var popup = 'Bus ' + tripsData[obj.vehicle.trip.trip_id].trip_headsign;
-              vehicles[obj.id] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
+              
             }
+          }).fail(function() { console.log('Cannot load data')} );
 
-            vehicles[obj.id].setLatLng(new L.latLng(lat, lng));
-          }
-        }).fail(function() {console.log('Cannot load data')});
-        setTimeout(updatePositions, 10000);
-      }
+          setTimeout(updatePositions, 7000);
+        }
 
-      credit = 'View <a href="https://github.com/Action-Lab/cttransit-bus-map">code</a> on GitHub | ';
-      attributionHTML = $('.leaflet-control-attribution')[0].innerHTML;
-      $('.leaflet-control-attribution')[0].innerHTML = credit + attributionHTML;
+        // This is the first and only call to updatePositions,
+        // then it starts calling itself via setTimeout
+        updatePositions();
+
+      });
+
+
+      // Edit credits and attribution
+      $('.leaflet-control-attribution')[0].innerHTML = 'View \
+        <a href="https://github.com/Action-Lab/cttransit-bus-map">code</a> on GitHub | '
+        + $('.leaflet-control-attribution')[0].innerHTML;
 
     </script>
 

@@ -1,18 +1,39 @@
 # CTTransit Real Time Bus Data for Trinity College
 
-## Embedded on several pages
+![](img/map.png)
+
+### Embedded on several pages
 - http://commons.trincoll.edu/action-lab/transportation/
 - http://commons.trincoll.edu/cli/transportation/
 - http://www.trinfocafe.org/index.php/transportation/
 - http://www.trincoll.edu/StudentLife/transportation/Pages/default.aspx
 
-### CT Transit real-time bus location data feed
+## CT Transit real-time bus location data feed
 
 http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json
 
-NOT currently provided with https secure
+Because the feed is currently **not** provided via https (only http), we cannot fetch this JSON directly from GitHub pages, which is running on secure, due to browser restrictions. This is why we need an intermediary that currently lives on ReclaimHosting https://cttransit.action-lab.org/. It is a Python script, a simple server that fetches http data from CTtransit and outputs it as its own, via https.
 
-### Maintaining the map
+#### ReclaimHosting's .htaccess script
+
+```
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/actionla/real-time-feed"
+PassengerBaseURI "/"
+PassengerPython "/home/actionla/virtualenv/real-time-feed/2.7/bin/python2.7"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+```
+
+![](img/python-app-screenshot.png)
+
+## Maintaining the map
+1. Regularly download fresh GTFS data for Hartford from CTTransit Developers (https://www.cttransit.com/about/developers) whenever they update the file (every few months).
+
+1. Simply run `gtfs/Update routes.ipynb` notebook to refresh `gtfs/routes.json`. This way the map knows which `trip_ids` are relevant and should be displayed from the real time feed.
+
+1. Push changes to GitHub repo
+
+### Maintaining the map (`index-old.html`)
 1. Regularly download fresh GTFS data for Hartford from CTTransit Developers (https://www.cttransit.com/about/developers) whenever they update the file. Subscribe for alerts. Unzip the archive and place *routes.txt* and *trips.txt* files into **gtfs** folder.
 
 1. Make sure that `route_id`s are up-to-date:
@@ -23,24 +44,3 @@ NOT currently provided with https secure
     var routesToDisplay = ['10073' /*37-39*/, '10076' /*41*/, '10089' /*61*/]; // Updated Aug 28, 2018
     ```
 1. Push changes to GitHub repo
-
-**TO DO: update URL and instructions below after it works again **
-
-1. The map also depends on a Python script to process the real-time feed. See `index.html` around line 293 reference to       
-```
-var jsonUrl = 'https://cttransit.action-lab.org/';
-```
-
-which points to the action-lab.org ReclaimHosting file manager with this .htaccess script:
-
-```
-# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
-PassengerAppRoot "/home/actionla/real-time-feed"
-PassengerBaseURI "/"
-PassengerPython "/home/actionla/virtualenv/real-time-feed/2.7/bin/python2.7"
-# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
-```
-
-which runs a Python script in the virtual environment in action-lab.org ReclaimHosting account
-
-![](img/python-app-screenshot.png)

@@ -1,0 +1,90 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+#schedule {
+  position: absolute;
+  z-index: 999;
+  top: 10px;
+  left: 10px;
+  background: white;
+  padding: 10px 15px;
+}
+span {
+  padding: 0 2px;
+}
+a, a:hover, a:visited {
+  color: rgb(58, 132, 223);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.leaflet-popup-content {
+  font-size: 14px;
+  margin: 10px 14px;
+  line-height: 1.2;
+}
+.bus-icon {
+  border: 0;
+  font-size: 11px;
+  text-align: center;
+  line-height: 10px;
+}
+.bus-icon img {
+  height: 32px;
+}
+.bus-icon img.downtown {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+.bus-icon span {
+  z-index: 99999;
+}
+.legend {
+  min-width: 200px;
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+.legend h4 {
+  margin: 0 0 5px;
+}
+
+.line {
+  display: inline-block;
+  width: 40px;
+  border-top: 5px solid red;
+  vertical-align: middle;
+  height: 0.1em;
+}
+
+.blue-line {
+  border-top: 5px solid blue;
+}
+
+.green-line {
+  border-top: 5px solid green;
+}
+
+.red-line {
+  border-top: 5px solid red;
+}
+
+.icon {
+  height: 1.2em;
+  margin: 0;
+  margin-right: 5px;
+}
