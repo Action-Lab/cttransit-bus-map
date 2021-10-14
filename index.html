@@ -37,6 +37,7 @@
       var map = L.map('map', {
         center: INIT_COORDS,
         zoom: 14,
+        maxZoom: 16, // Terrain basemap only allows up to 16
         scrollWheelZoom: false,
       });
 
@@ -148,7 +149,7 @@
 
       
       // Load trips.json data file, fetch bus locations, and start updating
-      $.getJSON('gtfs/trips.json', function(trips) {
+      $.getJSON('gtfs/trips.json?1', function(trips) {
         var markers = {};
 
         var updatePositions = function() {
@@ -158,6 +159,7 @@
               var obj = feed.entity[i];
               var route = parseInt(obj.vehicle.trip.route_id);
               var trip = parseInt(obj.vehicle.trip.trip_id);
+              var vehicleId = obj.vehicle.vehicle.id;
 
               // Only display buses that follow relevant trips (from trips.json)
               if ( trips[trip] ) {
@@ -165,7 +167,7 @@
                 var lng = obj.vehicle.position.longitude;
 
                 // Only add same buses once
-                if ( !markers[obj.id] ) {
+                if ( !markers[vehicleId] ) {
                   var busNumber = trips[trip].trip_headsign.split(' ')[0];
                   var is61 = busNumber.indexOf('61') === 0;     // `61` or `61D` etc
 
@@ -188,16 +190,16 @@
                   });
 
                   var popup = 'Bus ' + trips[trip].trip_headsign;
-                  markers[obj.id] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
+                  markers[vehicleId] = L.marker([lat, lng], {icon: glyph}).addTo(map).bindPopup(popup);
                 }
 
-                markers[obj.id].setLatLng(new L.latLng(lat, lng));
+                markers[vehicleId].setLatLng(new L.latLng(lat, lng));
               }
               
             }
           }).fail(function() { console.log('Cannot load data')} );
 
-          setTimeout(updatePositions, 7000);
+          setTimeout(updatePositions, 5000);
         }
 
         // This is the first and only call to updatePositions,

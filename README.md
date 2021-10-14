@@ -4,15 +4,16 @@
 
 ### Embedded on several pages
 - https://action-lab.org/transportation/
-- https://cher.trincoll.edu/transportation/
-- https://trinfocafe.org/index.php/transportation/
-- https://www.trincoll.edu/StudentLife/transportation/
+- https://www.trincoll.edu/cher/resources/getting-around-hartford/
+- https://www.trincoll.edu/studentlife/transportation/bus-pass/
 
 ## CT Transit real-time bus location data feed
 
-http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json
+~~http://65.213.12.244/realtimefeed/vehicle/vehiclepositions.json~~
 
-Because the feed is currently **not** provided via https (only http), we cannot fetch this JSON directly from GitHub pages, which is running on secure, due to browser restrictions. This is why we need an intermediary that currently lives on ReclaimHosting https://cttransit.action-lab.org/. It is a Python script, a simple server that fetches http data from CTtransit and outputs it as its own, via https.
+https://s3.amazonaws.com/cttransit-realtime-prod/vehiclepositions_pb.json
+
+AWS S3's server response misses an essential `Allow-Origin` header that browsers use and enforce for security, so we cannot fetch that feed directly from the client using jQuery. This is why we need an intermediary that currently lives on ReclaimHosting https://cttransit.action-lab.org/. It is a Python script, a simple server that fetches the feed from S3 and outputs it as its own, via https & with the `Allow-Origin = *` header.
 
 #### ReclaimHosting's .htaccess script
 
